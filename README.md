@@ -21,7 +21,7 @@
 # linux-configs
 My Linux Desktop Configuration files
 
-- [i3 configs]()
+- [i3 configs](https://github.com/xaprier/linux-configs/tree/main/i3)
 - [hyprland configs]()
 - [kde configs]()
 - [gnome configs]()
