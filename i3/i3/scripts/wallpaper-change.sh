@@ -2,7 +2,7 @@
 
 
 #declare the root directory for the pape folders
-walpaperdir="/home/xaprier/Pictures/wallpaper"
+walpaperdir="~/Pictures/wallpaper"
 
 #the script starts here
 folderpath="$walpaperdir/$(cat $HOME/.papefolder)"

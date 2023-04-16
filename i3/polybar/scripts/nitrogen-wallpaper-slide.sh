@@ -2,8 +2,7 @@
 
 export DISPLAY=":0"
 
-WALLPAPERS="/home/xaprier/Pictures/wallpaper/"
-#WALLPAPERS="/home/denise/Pictures/wallpapers-dt/"
+WALLPAPERS="~/Pictures/wallpaper/"
 ALIST=( `ls -w1 $WALLPAPERS` )
 RANGE=${#ALIST[@]}
 let "number = $RANDOM % $RANGE"

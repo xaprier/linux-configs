@@ -273,7 +273,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+k exec code
 bindsym $mod+f exec firefox
 bindsym $mod+t exec thunar
-bindsym $mod+b exec /home/xaprier/.config/i3/scripts/wallpaper-change.sh 1
+bindsym $mod+b exec ~/.config/i3/scripts/wallpaper-change.sh 1
 
 # screenshot
 bindsym Print exec spectacle -r
@@ -306,4 +306,4 @@ exec --no-startup-id xfce4-power-manager
 exec_always --no-startup-id "setxkbmap -layout tr"
 exec "discord"
 exec_always --no-startup-id polybar
-exec --no-startup-id /home/xaprier/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
+exec --no-startup-id ~/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
