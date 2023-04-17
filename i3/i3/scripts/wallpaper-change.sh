@@ -2,7 +2,7 @@
 
 
 #declare the root directory for the pape folders
-walpaperdir="~/Pictures/wallpaper"
+walpaperdir="$HOME/Pictures/wallpaper"
 
 #the script starts here
 folderpath="$walpaperdir/$(cat $HOME/.papefolder)"
@@ -12,7 +12,7 @@ pickpape()
 	selectionfile="$(ls "$folderpath" | shuf -n 1 )"
 
 	echo "$selectionfile"
-	echo $selectionfile >> ~/.papehistory
+	echo $selectionfile >> $HOME/.papehistory
 }
 
 changepape()
@@ -34,8 +34,8 @@ change_pape_folder()
 	options=$(ls -d "$walpaperdir"/* | sed "s:\($walpaperdir\)\(.*\)\/:\2:")
 	selection=$(echo "$options" | rofi -dmenu)	
 	if [ $? -eq 0 ]; then
-	echo $selection > ~/.papefolder
-	folderpath="$walpaperdir/$(cat ~/.papefolder)"
+	echo $selection > $HOME/.papefolder
+	folderpath="$walpaperdir/$(cat $HOME/.papefolder)"
 	changepape
 else
 	exit 1

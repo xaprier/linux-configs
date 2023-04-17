@@ -2,9 +2,9 @@
 
 ## Files and Directories
 DIR="$HOME/.config/polybar"
-include-file = ~/.config/polybar/colors.ini
-include-file = ~/.config/polybar/modules.ini
-include-file = ~/.config/polybar/decor.ini
+include-file = $HOME/.config/polybar/colors.ini
+include-file = $HOME/.config/polybar/modules.ini
+include-file = $HOME/.config/polybar/decor.ini
 
 # Terminate already running bar instances
 killall -q polybar
