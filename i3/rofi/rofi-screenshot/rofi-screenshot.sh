@@ -41,7 +41,7 @@ crtf() {
   notify-send --app-name="screenshot" "Screenshot" "Select a region to capture"
   dt=$(date '+%d-%m-%Y %H:%M:%S')
   ffcast -q "$(slop -n -f '-g %g ')" png "$screenshot_directory/$dt.png"
-  notify-send --app-name="screenshot" "Screenshot" "Region saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Region saved to ${screenshot_directory//${HOME}/~}/$dt.png"
 }
 
 cstc() {
@@ -54,7 +54,7 @@ cstc() {
 cstf() {
   dt=$(date '+%d-%m-%Y %H:%M:%S')
   ffcast -q png "$screenshot_directory/$dt.png"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.png"
 }
 
 rgrtf() {
@@ -64,7 +64,7 @@ rgrtf() {
   notify-send --app-name="screenshot" "Screenshot" "Converting to gif… (can take a while)"
   video_to_gif /tmp/screenshot_gif.mp4 "$screenshot_directory/$dt.gif"
   rm /tmp/screenshot_gif.mp4
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.gif"
 }
 
 rgstf() {
@@ -74,26 +74,26 @@ rgstf() {
   notify-send --app-name="screenshot" "Screenshot" "Converting to gif… (can take a while)"
   video_to_gif /tmp/screenshot_gif.mp4 "$screenshot_directory/$dt.gif"
   rm /tmp/screenshot_gif.mp4
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.gif"
 }
 
 rvrtf() {
   notify-send --app-name="screenshot" "Screenshot" "Select a region to record"
   dt=$(date '+%d-%m-%Y %H:%M:%S')
   ffcast -q "$(slop -n -f '-g %g ' && countdown)" rec "$screenshot_directory/$dt.mp4"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.mp4"
 }
 
 rvstf() {
   countdown
   dt=$(date '+%d-%m-%Y %H:%M:%S')
   ffcast -q rec "$screenshot_directory/$dt.mp4"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.mp4"
 }
 
 stop_recording() {
   pkill -fxn '(/\S+)*ffmpeg\s.*\sx11grab\s.*'
-  exit 1
+  notify-send --app-name="screenshot" "Screenshot" "Recording stopped"
 }
 
 get_options() {
@@ -124,8 +124,7 @@ main() {
 
   if [[ $1 = '--stop' ]] || [[ $1 = '-s' ]]
   then
-    pkill -fxn '(/\S+)*ffmpeg\s.*\sx11grab\s.*'
-    exit 1
+    stop_recording
   fi
 
   if [[ $1 = '--directory' ]] || [[ $1 = '-d' ]]
