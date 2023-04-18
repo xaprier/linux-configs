@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [ $(pamixer --source "alsa_input.pci-0000_00_1f.3.analog-stereo" --get-mute) = "false" ]
+if [ $(pamixer --source "$(pamixer --list-sources | grep "input" | awk '{ print $1 }')" --get-mute) = "false" ]
 then
-  echo "  $(pamixer --source "alsa_input.pci-0000_00_1f.3.analog-stereo" --get-volume-human)" # Muted Icon (Install Some icon pack like feather, nerd-fonts)
+  echo "  $(pamixer --source "$(pamixer --list-sources | grep "input" | awk '{ print $1 }')" --get-volume-human)" # Muted Icon (Install Some icon pack like feather, nerd-fonts)
 else
   echo " 󰍭 " # Unmuted Icon (Install Some icon pack like feather, nerd-fonts)
 fi
