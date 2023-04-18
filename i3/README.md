@@ -12,15 +12,18 @@
 - pamixer
 - nitrogen(wallpaper-slide)
 - nerd-fonts-git
+- ffcast(screenshot in rofi)
+- xclip(screenshot in rofi)
+- dunst(notify sender)
 - if something else require that i missed, please open new issue or fork the project and add them here than create a pull request
 
 ## Installing Dependencies 
 ```sh
-yay -S i3-wm polybar rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git
+yay -S i3-wm polybar rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
 ```
 or
 ```sh
-paru -S i3-wm polybar rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git
+paru -S i3-wm polybar rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
 ```P
 
 ## Installing configs
