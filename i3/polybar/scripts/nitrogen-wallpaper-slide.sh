@@ -1,9 +1,14 @@
-#! /bin/bash
+#!/bin/bash
 
-export DISPLAY=":0"
+TOTALPICS=$(ls $HOME/Pictures/wallpaper/*.jpg | wc --lines);
+PIC=$(ls $HOME/Pictures/wallpaper/*.jpg | awk "NR==$(( $RANDOM % ${TOTALPICS} + 1 )) {print}");
 
-WALLPAPERS="$HOME/Pictures/wallpaper/"
-ALIST=( `ls -w1 $WALLPAPERS` )
-RANGE=${#ALIST[@]}
-let "number = $RANDOM % $RANGE"
-nitrogen --save $WALLPAPERS/${ALIST[$number]}
+echo $PIC;
+
+sed --in-place "s#=.*.jpg#=${PIC}#g" $HOME/.config/nitrogen/bg-saved.cfg;
+
+nitrogen --restore;
+
+# make executable script
+# then open crontab with: crontab -e
+# add this line to crontab: */5 * * * * /home/username/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
