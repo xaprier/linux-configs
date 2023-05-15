@@ -294,7 +294,7 @@ gaps outer 2
 
 # shut down, restart and locking features
 bindsym $mod+Delete exec clearine
-bindsym $mod+L exec /usr/bin/i3lock-fancy
+bindsym $mod+L exec /home/xaprier/.local/bin/betterlockscreen --lock
 # autostarted applications
 exec --no-startup-id autotiling
 #exec_always --no-startup-id wal -R -n

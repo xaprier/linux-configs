@@ -20,7 +20,7 @@ dir="$HOME/.config/rofi/powermenu"
 
 # random colors
 styles=($(ls -p --hide="colors.rasi" $dir/styles))
-color="${styles[$(( $RANDOM % 8 ))]}"
+color="${styles[$(($RANDOM % 8))]}"
 
 # comment this line to disable random colors
 #sed -i -e "s/@import .*/@import \"$color\"/g" $dir/styles/colors.rasi
@@ -35,17 +35,14 @@ rofi_command="rofi -theme $dir/full_rounded"
 
 # Options for powermenu
 lock=""
-logout=""
+logout="\Uf0343"
 shutdown=""
-reboot=""
-suspend=""
+reboot="\Uf0709"
+suspend=""
 
 # Confirmation
 confirm_exit() {
-	rofi -dmenu\
-		-i\
-		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
+	rofi -dmenu -i -no-fixed-num-lines -p "Are You Sure? : " \
 		-theme $dir/confirm.rasi
 }
 
@@ -59,29 +56,29 @@ options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
 case $chosen in
-    $shutdown)
-			systemctl poweroff
-        ;;
-    $reboot)
-			systemctl reboot
-        ;;
-    $lock)
-			betterlockscreen --lock
-        ;;
-    $suspend)
-			mpc -q pause
-			amixer set Master mute
-			systemctl suspend
-        ;;
-    $logout)
-			if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
-				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-				bspc quit
-			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-				i3-msg exit
-			elif [[ "$DESKTOP_SESSION" == "xfce" ]]; then
-				killall xfce4-session
-			fi
-        ;;
+$shutdown)
+	systemctl poweroff
+	;;
+$reboot)
+	systemctl reboot
+	;;
+$lock)
+	/home/xaprier/.local/bin/betterlockscreen --lock
+	;;
+$suspend)
+	mpc -q pause
+	amixer set Master mute
+	systemctl suspend
+	;;
+$logout)
+	if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
+		openbox --exit
+	elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
+		bspc quit
+	elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
+		i3-msg exit
+	elif [[ "$DESKTOP_SESSION" == "xfce" ]]; then
+		killall xfce4-session
+	fi
+	;;
 esac
