@@ -167,20 +167,22 @@ mode "resize" {
 }
 
 # window colors
-# #                       border              background         text                 indicator
 # class                 border  backgr. text    indicator child_border
-client.focused          #FFA500  $bg-color  $text-color  $indicator-color
-client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color     $indicator-color
-client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color     $indicator-color
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color              $indicator-color
+client.focused          #4c7899 #d15d19 #ffffff #2e9ef4   #FFA500
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 default_border pixel 2
 default_floating_border pixel 2
-gaps outer 0
-gaps inner 20
+gaps outer 1
+gaps inner 10
 gaps vertical -7
 gaps top -15
 gaps horizontal 10
+smart_borders on
+smart_borders no_gaps
 hide_edge_borders both
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork 
@@ -286,24 +288,23 @@ new_float normal 1
 hide_edge_borders none
 
 # i3 gaps
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 gaps inner 8
 gaps outer 2
 
 # shut down, restart and locking features
 bindsym $mod+Delete exec clearine
-
+bindsym $mod+L exec /usr/bin/i3lock-fancy
 # autostarted applications
 exec --no-startup-id autotiling
 #exec_always --no-startup-id wal -R -n
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.fehbg
 exec_always --no-startup-id picom
-exec --no-startup-id xset dpms 500
+exec_always --no-startup-id xautolock -time 10 -corners 000- -locker /usr/bin/i3lock-fancy
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
-exec --no-startup-id xfce4-power-manager
 exec_always --no-startup-id "setxkbmap -layout tr"
-exec "discord"
+exec "/opt/Discord/Discord"
 exec_always --no-startup-id polybar
 exec --no-startup-id ~/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
