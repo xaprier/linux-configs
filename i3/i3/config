@@ -8,7 +8,8 @@
 #
 # i3 Config 2021-08-14
 #                    
-
+exec xrandr --setprovideroutputsource modesetting NVIDIA-0
+exec xrandr --auto
 set $mod Mod4
 
 
@@ -185,7 +186,6 @@ smart_borders on
 smart_borders no_gaps
 hide_edge_borders both
 
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork 
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -301,10 +301,11 @@ exec --no-startup-id autotiling
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.fehbg
 exec_always --no-startup-id picom
-exec_always --no-startup-id xautolock -time 10 -corners 000- -locker /usr/bin/i3lock-fancy
+exec xautolock -detectsleep -time 3 -locker "/home/xaprier/.config/i3/scripts/lock.sh"
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
 exec_always --no-startup-id "setxkbmap -layout tr"
 exec "/opt/Discord/Discord"
 exec_always --no-startup-id polybar
 exec --no-startup-id ~/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
+exec --no-startup-id /usr/libexec/xfce-polkit
