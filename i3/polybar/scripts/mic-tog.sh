@@ -1,8 +1,9 @@
 #!/bin/sh
 
-if [ $(pamixer --source "$(pamixer --list-sources | grep "input" | awk '{ print $1 }')" --get-mute) = "false" ]
-then
-  echo "  $(pamixer --source "$(pamixer --list-sources | grep "input" | awk '{ print $1 }')" --get-volume-human)" # Muted Icon (Install Some icon pack like feather, nerd-fonts)
+if [ $(amixer sget Capture | grep "Front Left: Capture" | awk '{print $7}') = "[on]" ]; then
+  volume=$(amixer sget Capture | grep "Front Left: Capture" | awk '{ print $5 }' | tr -d '[]%')
+
+  echo "  $volume" # Muted Icon (Install Some icon pack like feather, nerd-fonts)
 else
   echo " 󰍭 " # Unmuted Icon (Install Some icon pack like feather, nerd-fonts)
 fi
