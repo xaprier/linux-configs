@@ -9,6 +9,7 @@
 
 # Screenshot directory
 screenshot_directory="$HOME/Pictures/Screenshots"
+video_directory="$HOME/Videos"
 
 # Default date format
 default_date_format="+%d-%m-%Y %H:%M:%S"
@@ -43,8 +44,8 @@ crtc() {
 crtf() {
   notify-send --app-name="screenshot" "Screenshot" "Select a region to capture"
   dt=$1
-  ffcast -q "$(slop -n -f '-g %g ')" png "$screenshot_directory/$dt.png"
-  notify-send --app-name="screenshot" "Screenshot" "Region saved to ${screenshot_directory//${HOME}/~}/$dt.png"
+  ffcast -q "$(slop -n -f '-g %g ')" png "$screenshot_directory/Screenshot from $dt.png"
+  notify-send --app-name="screenshot" "Screenshot" "Region saved to ${screenshot_directory//${HOME}/~}/Screenshot from $dt.png"
 }
 
 cstc() {
@@ -56,8 +57,8 @@ cstc() {
 
 cstf() {
   dt=$1
-  ffcast -q png "$screenshot_directory/$dt.png"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.png"
+  ffcast -q png "$screenshot_directory/Screenshot from $dt.png"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/Screenshot from$dt.png"
 }
 
 rgrtf() {
@@ -65,9 +66,9 @@ rgrtf() {
   dt=$1
   ffcast -q "$(slop -n -f '-g %g ' && countdown)" rec /tmp/screenshot_gif.mp4
   notify-send --app-name="screenshot" "Screenshot" "Converting to gif… (can take a while)"
-  video_to_gif /tmp/screenshot_gif.mp4 "$screenshot_directory/$dt.gif"
+  video_to_gif /tmp/screenshot_gif.mp4 "$video_directory/$dt.gif"
   rm /tmp/screenshot_gif.mp4
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.gif"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${video_directory//${HOME}/~}/$dt.gif"
 }
 
 rgstf() {
@@ -75,23 +76,23 @@ rgstf() {
   dt=$1
   ffcast -q rec /tmp/screenshot_gif.mp4
   notify-send --app-name="screenshot" "Screenshot" "Converting to gif… (can take a while)"
-  video_to_gif /tmp/screenshot_gif.mp4 "$screenshot_directory/$dt.gif"
+  video_to_gif /tmp/screenshot_gif.mp4 "$video_directory/$dt.gif"
   rm /tmp/screenshot_gif.mp4
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.gif"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${video_directory//${HOME}/~}/$dt.gif"
 }
 
 rvrtf() {
   notify-send --app-name="screenshot" "Screenshot" "Select a region to record"
   dt=$1
-  ffcast -q "$(slop -n -f '-g %g ' && countdown)" rec "$screenshot_directory/$dt.mp4"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.mp4"
+  ffcast -q "$(slop -n -f '-g %g ' && countdown)" rec "$video_directory/$dt.mp4"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${video_directory//${HOME}/~}/$dt.mp4"
 }
 
 rvstf() {
   countdown
   dt=$1
-  ffcast -q rec "$screenshot_directory/$dt.mp4"
-  notify-send --app-name="screenshot" "Screenshot" "Saved to ${screenshot_directory//${HOME}/~}/$dt.mp4"
+  ffcast -q rec "$video_directory/$dt.mp4"
+  notify-send --app-name="screenshot" "Screenshot" "Saved to ${video_directory//${HOME}/~}/$dt.mp4"
 }
 
 stop_recording() {
@@ -117,7 +118,7 @@ get_options() {
 }
 
 check_deps() {
-  if ! hash "$1" 2> /dev/null; then
+  if ! hash "$1" 2>/dev/null; then
     echo "Error: This script requires $1"
     exit 1
   fi
@@ -158,82 +159,109 @@ main() {
   for arg in "$@"; do
     shift
     case "$arg" in
-      '--help') set -- "$@" '-h' ;;
-      '--directory') set -- "$@" '-d' ;;
-      '--timestamp') set -- "$@" '-t' ;;
-      '--stop') set -- "$@" '-s' ;;
-      *) set -- "$@" "$arg" ;;
+    '--help') set -- "$@" '-h' ;;
+    '--directory') set -- "$@" '-d' ;;
+    '--timestamp') set -- "$@" '-t' ;;
+    '--stop') set -- "$@" '-s' ;;
+    '--save-file') set -- "$@" '-f' ;;
+    '--save-clipboard') set -- "$@" '-c' ;;
+    '--rectangle') set -- "$@" '-r' ;;
+    '--fullscreen') set -- "$@" '-a' ;;
+    *) set -- "$@" "$arg" ;;
     esac
   done
 
   # parse short options
   OPTIND=1
-  date_format="$default_date_format"
-  while getopts "hd:t:s" opt; do
+  SAVE_STATUS=0
+  now_date=$(date '+%d-%m-%Y %H:%M:%S')
+
+  while getopts "hd:t:sfcra" opt; do
     case "$opt" in
-      'h')
-        show_help
+    'h')
+      show_help
+      exit 0
+      ;;
+    'd')
+      check_directory $OPTARG
+      screenshot_directory="$OPTARG"
+      ;;
+    't')
+      date_format="$OPTARG"
+      ;;
+    's')
+      stop_recording
+      exit 0
+      ;;
+    '?')
+      show_help
+      exit 1
+      ;;
+    'f')
+      SAVE_STATUS=1
+      ;;
+    'c')
+      SAVE_STATUS=0
+      ;;
+    'r')
+      if [[ $SAVE_STATUS -eq 1 ]]; then
+        crtf "$now_date"
         exit 0
-        ;;
-      'd')
-        check_directory $OPTARG
-        screenshot_directory="$OPTARG"
-        ;;
-      't')
-        date_format="$OPTARG"
-        ;;
-      's')
-        stop_recording
+      else
+        crtc
         exit 0
-        ;;
-      '?')
-        show_help
-        exit 1
-        ;;
+      fi
+      ;;
+    'a')
+      if [[ $SAVE_STATUS -eq 1 ]]; then
+        cstf "$now_date"
+        exit 0
+      else
+        cstc
+        exit 0
+      fi
+      ;;
     esac
   done
   shift $(expr $OPTIND - 1)
 
   # Get choice from rofi
-  choice=$( (get_options) | rofi -dmenu -i -fuzzy -p "Screenshot")
+  choice=$( (get_options) | rofi -dmenu -i -fuzzy -p "Screenshot" -theme "$HOME/.config/rofi/launchers/type-6/style-5.rasi")
 
   # If user has not picked anything, exit
   if [[ -z "${choice// /}" ]]; then
     exit 1
   fi
 
-  cmd='date "${date_format}"'
-  dt=$(eval $cmd)
-
   # run the selected command
   case $choice in
-    '  Region  Clip')
-      crtc
-      ;;
-    '  Region  File')
-      crtf "$dt"
-      ;;
-    '  Screen  Clip')
-      cstc
-      ;;
-    '  Screen  File')
-      cstf "$dt"
-      ;;
-    '  Region  File (GIF)')
-      rgrtf "$dt"
-      ;;
-    '  Screen  File (GIF)')
-      rgstf "$dt"
-      ;;
-    '  Region  File (MP4)')
-      rvrtf "$dt"
-      ;;
-    '  Screen  File (MP4)')
-      rvstf "$dt"
-      ;;
-    '  Stop recording')
-      stop_recording
-      ;;
+  '  Region  Clip')
+    crtc
+    ;;
+  '  Region  File')
+    crtf "$now_date"
+    ;;
+  '  Screen  Clip')
+    cstc
+    ;;
+  '  Screen  File')
+    cstf "$now_date"
+    ;;
+  '  Region  File (GIF)')
+    rgrtf "$now_date"
+    ;;
+  '  Screen  File (GIF)')
+    rgstf "$now_date"
+    ;;
+  '  Region  File (MP4)')
+    rvrtf "$now_date"
+    ;;
+  '  Screen  File (MP4)')
+    rvstf "$now_date"
+    ;;
+  '  Stop recording')
+    stop_recording
+    ;;
   esac
 
   # done
@@ -245,4 +273,3 @@ main "$@" &
 exit 0
 
 ! /bin/bash
-
