@@ -8,8 +8,8 @@
 #
 # i3 Config 2021-08-14
 #                    
-exec xrandr --setprovideroutputsource modesetting NVIDIA-0
-exec xrandr --auto
+#exec xrandr --setprovideroutputsource modesetting NVIDIA-0
+#exec xrandr --auto
 set $mod Mod4
 
 
@@ -51,11 +51,19 @@ bindsym $mod+r exec kitty
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec "/home/xaprier/.config/rofi/launchers/type-7/launcher.sh 0"
 
 # start rofi (window mode)
-bindsym $mod+Tab exec pkill rofi || rofi -show window
+bindsym $mod+Tab exec "/home/xaprier/.config/rofi/launchers/type-7/launcher.sh 1"
 
+workspace 1 output HDMI-0 
+workspace 2 output HDMI-0 
+workspace 3 output HDMI-0 
+workspace 4 output eDP-1-1
+workspace 5 output eDP-1-1
+workspace 6 output eDP-1-1
+
+bindsym $mod+P exec "/home/xaprier/.config/rofi/screen-changer/screen-changer.sh"
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -274,13 +282,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+k exec code
 bindsym $mod+f exec firefox
-bindsym $mod+t exec thunar
+bindsym $mod+t exec nautilus
 bindsym $mod+b exec ~/.config/i3/scripts/wallpaper-change.sh 1
 
 # screenshot
-bindsym Print exec spectacle -r
-bindsym Print+Control exec spectacle -f
-bindsym Print+Shift+Control exec spectacle -a
+bindsym Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -c -r 
+bindsym Control+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -c -a 
+bindsym Shift+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -f -r 
+bindsym Shift+Control+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -f -a 
 
 # window style
 new_window pixel 1
@@ -289,23 +298,23 @@ hide_edge_borders none
 
 # i3 gaps
 for_window [class="^.*"] border pixel 2
-gaps inner 8
+gaps inner 6
 gaps outer 2
 
 # shut down, restart and locking features
 bindsym $mod+Delete exec clearine
-bindsym $mod+L exec /home/xaprier/.local/bin/betterlockscreen --lock
+bindsym $mod+L exec /usr/local/bin/betterlockscreen --lock
 # autostarted applications
 exec --no-startup-id autotiling
 #exec_always --no-startup-id wal -R -n
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id ~/.fehbg
+exec_always --no-startup-id ~/.config/polybar/launchpolybar.sh
+#exec --no-startup-id ~/.fehbg
 exec_always --no-startup-id picom
-exec xautolock -detectsleep -time 3 -locker "/home/xaprier/.config/i3/scripts/lock.sh"
+exec --no-startup-id xautolock -detectsleep -time 3 -locker "/home/xaprier/.config/i3/scripts/lock.sh" 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
 exec_always --no-startup-id "setxkbmap -layout tr"
-exec "/opt/Discord/Discord"
-exec_always --no-startup-id polybar
-exec --no-startup-id ~/.config/polybar/scripts/nitrogen-wallpaper-slide.sh
+exec "Discord"
+# exec_always --no-startup-id polybar
+exec_always --no-startup-id nitrogen --restore
 exec --no-startup-id /usr/libexec/xfce-polkit
