@@ -47,6 +47,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+r exec kitty
 
+#clipboard
+bindsym $mod+g exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme /home/xaprier/.config/rofi/launchers/type-6/style-7.rasi
+
 # kill focused window
 bindsym $mod+q kill
 
@@ -314,7 +317,8 @@ exec --no-startup-id xautolock -detectsleep -time 3 -locker "/home/xaprier/.conf
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
 exec_always --no-startup-id "setxkbmap -layout tr"
-exec "Discord"
+exec "discord"
 # exec_always --no-startup-id polybar
 exec_always --no-startup-id nitrogen --restore
 exec --no-startup-id /usr/libexec/xfce-polkit
+exec --no-startup-id greenclip daemon

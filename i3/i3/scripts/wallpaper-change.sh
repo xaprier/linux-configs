@@ -14,15 +14,16 @@ pickpape() {
 }
 
 changepape() {
-	numscreens="$(xrandr | grep " connected" | awk '{print $1}' | wc -l)"
-	fehargs=("--bg-fill")
-	while [ $numscreens -gt 0 ]; do
-		newarg="$(pickpape)"
-		fehargs+='" "'
-		fehargs+="$newarg"
-		numscreens=$(($numscreens - 1))
-	done
-	eval feh '"'$fehargs'"'
+	currentMonitor=$(expr $(xdotool get_desktop) + 4)
+	command="feh --bg-fill "
+	if [[ $currentMonitor -eq 5 ]]; then # first monitor
+		command+="$(cat ~/.fehbg | grep feh | awk '{printf "%s", $4}') "
+		command+="$folderpath"
+	else
+		command+="$folderpath "
+		command+="$(cat ~/.fehbg | grep feh | awk '{printf "%s", $5}')"
+	fi
+	eval $command
 }
 
 change_pape_folder() {

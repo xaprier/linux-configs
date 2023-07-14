@@ -17,6 +17,7 @@
 - xclip(screenshot in rofi)
 - dunst(notify sender)
 - [spotify-cli](https://github.com/pwittchen/spotify-cli-linux)
+- [greenclip](https://github.com/erebe/greenclip)
 - if something else require that i missed, please open new issue or fork the project and add them here than create a pull request
 
 ## Installing Dependencies
