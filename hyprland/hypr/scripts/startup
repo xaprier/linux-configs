@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+sleep 1
+killall -e xdg-desktop-portal-hyprland
+killall -e xdg-desktop-portal-wlr
+killall xdg-desktop-portal
+/usr/lib/xdg-desktop-portal-hyprland &
+sleep 2
+/usr/lib/xdg-desktop-portal &
+
+# Kill already running process
+_ps=(waybar mako)
+for _prs in "${_ps[@]}"; do
+	if [[ $(pidof ${_prs}) ]]; then
+		killall -9 ${_prs}
+	fi
+done
+
+# Start gnome keyring
+exec gnome-keyring-daemon --daemonize --start --components=gpg,pkcs11,secrets,ssh &
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Set wallpaper
+swaybg --output '*' --mode fill --image /home/xaprier/Pictures/wallpaper/alanımaihtiyaıcmvar.jpg &
+swaybg --output '*' --mode fill --image /home/xaprier/Pictures/wallpaper/alanımaihtiyaıcmvar.jpg &
+
+# Apply themes
+~/.config/hypr/scripts/gtkthemes &
+
+# Lauch notification daemon (mako)
+~/.config/hypr/scripts/notifications &
+
+# Lauch statusbar (waybar)
+~/.config/hypr/scripts/statusbar &
+
+# Start network manager applet
+nm-applet --indicator &
+
+# Start mpd
+exec mpd &
