@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/.config/hypr"
+RASI="$DIR/rofi/runner.rasi"
+
+# Theme Elements
+mesg="Clipboard Manager"
+
+# Options
+rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme ${RASI}

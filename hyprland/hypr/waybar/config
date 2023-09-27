@@ -11,7 +11,8 @@
             "clock",
             "cpu",
             "temperature",
-            "memory"
+            "memory",
+            "custom/clipboard"
         ],
         "modules-center": [
             "hyprland/window"
@@ -69,6 +70,11 @@
         "custom/wallpaper": {
             "format": "  ",
             "on-click": "sh ~/.config/hypr/scripts/rofi_wallpaper.sh 1 &",
+            "tooltip": false
+        },
+        "custom/clipboard": {
+            "format": "  ",
+            "on-click": "sh ~/.config/hypr/scripts/rofi_clipboard &",
             "tooltip": false
         },
         "clock": {
@@ -174,7 +180,8 @@
             "clock",
             "cpu",
             "temperature",
-            "memory"
+            "memory",
+            "custom/clipboard"
         ],
         "modules-center": [
             "hyprland/window"
@@ -233,6 +240,11 @@
         "custom/wallpaper": {
             "format": "  ",
             "on-click": "sh ~/.config/hypr/scripts/rofi_wallpaper.sh 1 &",
+            "tooltip": false
+        },
+        "custom/clipboard": {
+            "format": "  ",
+            "on-click": "sh ~/.config/hypr/scripts/rofi_clipboard &",
             "tooltip": false
         },
         "clock": {

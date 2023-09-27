@@ -125,6 +125,7 @@ window#waybar {
 #custom-rightcorner,
 #custom-leftcorner,
 #custom-wallpaper,
+#custom-clipboard,
 #mpd {
     padding: 5px 8px;
     border-style: solid;
@@ -142,6 +143,12 @@ window#waybar {
 
 #custom-leftcorner {
     border-radius: 10px 0px 0px 10px;
+    background-color: @base;
+    margin-left: 10px;
+}
+
+#custom-clipboard {
+    border-radius: 10px;
     background-color: @base;
     margin-left: 10px;
 }
