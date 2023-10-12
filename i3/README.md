@@ -29,10 +29,10 @@ pip install spotify-cli-linux
 
 or
 
-````sh
+```sh
 paru -S i3-wm polybar rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
 pip install spotify-cli-linux
-```P
+```
 
 ## Installing configs
 ```sh
