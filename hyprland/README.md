@@ -1,5 +1,9 @@
 # Hyprland Settings
 
+## Before Start
+
+- These settings do not entirely belong to me, but they also do not exclusively belong to someone else. They are configurations pulled from multiple GitHub repositories, blended together, and enhanced with my own comments and additions.
+
 ## Dependencies that I used
 
 - hyprland(wayland window manager)
