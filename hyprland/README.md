@@ -1,4 +1,4 @@
-# i3 Settings
+# Hyprland Settings
 
 ## Dependencies that I used
 
@@ -51,6 +51,7 @@ cp -r cava hypr kitty mako mpd rofi swaylock viewnior waybar ~/.config
 
 - Changing your startup wallpaper in hypr/scripts/startup
 - Changing your wallpaper directory in hypr/scripts/background for randomized wallpaper
+- I'm a NVIDIA user and there is env vars on hyprland.conf file in hypr directory, if you are not a NVIDIA user, disable them.
 
 ## Exit and login to Hyprland
 
