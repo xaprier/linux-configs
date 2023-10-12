@@ -60,4 +60,9 @@ cp -r cava hypr kitty mako mpd rofi swaylock viewnior waybar ~/.config
 <img src="assets/desktop_with_progs.png">
 
 # Videos
-[https://github.com/xaprier/linux-configs/blob/main/hyprland/assets/video.mp4](https://www.youtube.com/watch?v=Dilk-8n7dSI)https://www.youtube.com/watch?v=Dilk-8n7dSI
+<iframe width="560" height="315"
+src="https://www.youtube.com/watch?v=Dilk-8n7dSI" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen>
+</iframe>
