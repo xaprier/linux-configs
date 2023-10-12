@@ -60,4 +60,5 @@ cp -r cava hypr kitty mako mpd rofi swaylock viewnior waybar ~/.config
 <img src="assets/desktop_with_progs.png">
 
 # Videos
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Dilk-8n7dSI?si=_7T87_QLk2xNug06" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+## Hyprland Rice Video
+https://www.youtube.com/watch?v=Dilk-8n7dSI
