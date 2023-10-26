@@ -27,6 +27,10 @@
 - viewnior(image viewer)
 - sddm(display manager)
 - sddm-theme-tokyo-night(sddm theme)
+- nerd-fonts-git(fonts for waybar icons)
+- polkit-gnome
+- network-manager-applet
+- qt6-wayland
 - if something else require that i missed, please open new issue or fork the project and add them here than create a pull request
 
 ## Installing Hyprland
@@ -45,7 +49,7 @@ yay -S hyprland-git
 
 ## Installing Other Dependencies
 ```sh
-yay -S waybar-hyprland-git cava-git mako kitty playerctl picom rofi-lbonn-wayland-git swaylock-effects mpd thunar zsh wl-clipboard wireplumber xdg-desktop-portal-hyprland-git swaybg rofi-greenclip gnome-calendar viewnior sddm sddm-theme-tokyo-night
+yay -S waybar-hyprland-git qt6-wayland network-manager-applet polkit-gnome nerd-fonts-git cava-git mako kitty playerctl picom rofi-lbonn-wayland-git swaylock-effects mpd thunar zsh wl-clipboard wireplumber xdg-desktop-portal-hyprland-git swaybg rofi-greenclip gnome-calendar viewnior sddm sddm-theme-tokyo-night
 ```
 
 ## Installing configs
