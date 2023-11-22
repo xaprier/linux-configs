@@ -17,7 +17,7 @@ changepape() {
   result=$(hyprctl activeworkspace | grep -c eDP-1)
   echo "$result"
   command=""
-  if [ "$result" -eq 1 ]; then # if the workspace in first screen
+  if [ "$result" -ge 1 ]; then # if the workspace in first screen
     command+="swaybg --output 'eDP-1' --mode fill --image $folderpath"
   else # if the workspace in second screen
     command+="swaybg --output 'HDMI-A-1' --mode fill --image $folderpath"

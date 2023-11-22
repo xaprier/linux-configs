@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Import Current Theme
+DIR="$HOME/.config/hypr"
+RASI="$DIR/rofi/systemmenu.rasi"
+
+# Theme Elements
+prompt='SMG'
+mesg="System Management GUI"
+
+# Options
+option_1="󰚰 Update Packages"
+option_2="󰃨 Clear Cache Memory"
+
+
+# Rofi CMD
+rofi_cmd() {
+	rofi -dmenu \
+		-p "$prompt" \
+		-mesg "$mesg" \
+		-markup-rows \
+		-theme ${RASI}
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+	echo -e "$option_1\n$option_2" | rofi_cmd
+}
+
+update() {
+	eval kitty --hold sh -c "yay -Syyu"
+	notify-send "System Updated"
+}
+
+clear_cache() {
+	eval kitty --hold sudo sh -c "'echo 3 > /proc/sys/vm/drop_caches'"
+	notify-send "Cache Cleared"
+}
+
+# Execute Command
+run_cmd() {
+	if [[ "$1" == '--opt1' ]]; then
+		update
+	elif [[ "$1" == '--opt2' ]]; then
+		clear_cache
+	fi
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+$option_1)
+	run_cmd --opt1
+	;;
+$option_2)
+	run_cmd --opt2
+	;;
+esac

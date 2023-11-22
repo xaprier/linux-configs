@@ -28,6 +28,7 @@
             "custom/wallpaper",
             "battery",
             "custom/screenshot",
+            "custom/system",
             "custom/power",
             "custom/rightcorner",
             "tray"
@@ -70,6 +71,11 @@
         "custom/wallpaper": {
             "format": "  ",
             "on-click": "sh ~/.config/hypr/scripts/rofi_wallpaper.sh 1 &",
+            "tooltip": false
+        },
+        "custom/system": {
+            "format": " 󰒋 ",
+            "on-click": "sh ~/.config/hypr/scripts/rofi_system &",
             "tooltip": false
         },
         "custom/clipboard": {
@@ -147,7 +153,7 @@
             "tooltip": false
         },
         "custom/screenshot": {
-            "format": " ",
+            "format": "",
             "on-click": "~/.config/hypr/scripts/rofi_screenshot",
             "tooltip": false
         },
@@ -197,6 +203,7 @@
             "custom/wallpaper",
             "battery",
             "custom/screenshot",
+            "custom/system",
             "custom/power",
             "custom/rightcorner",
             "tray"
@@ -240,6 +247,11 @@
         "custom/wallpaper": {
             "format": "  ",
             "on-click": "sh ~/.config/hypr/scripts/rofi_wallpaper.sh 1 &",
+            "tooltip": false
+        },
+        "custom/system": {
+            "format": " 󰒋 ",
+            "on-click": "sh ~/.config/hypr/scripts/rofi_system &",
             "tooltip": false
         },
         "custom/clipboard": {
