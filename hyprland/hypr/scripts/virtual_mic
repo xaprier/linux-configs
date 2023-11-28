@@ -1,0 +1,10 @@
+#!/bin/bash
+
+eval pactl load-module module-pipe-sink \
+    sink_name=audiorelay-virtual-mic-sink \
+    sink_properties=device.description=Virtual-Mic-Sink
+
+eval pactl load-module module-remap-source \
+	master=audiorelay-virtual-mic-sink.monitor \
+	source_name=audiorelay-virtual-mic-sink \
+	source_properties=device.description=Virtual-Mic

@@ -33,8 +33,13 @@ swaybg --output 'HDMI-A-1' --mode fill --image /home/xaprier/Pictures/wallpaper/
 # Lauch statusbar (waybar)
 ~/.config/hypr/scripts/statusbar &
 
+# virtual mic
+~/.config/hypr/scripts/virtual_mic &
+
 # Start network manager applet
 nm-applet --indicator &
 
 # Start mpd
 exec mpd &
+
+notify-send "Hyprland" "Launched" &
