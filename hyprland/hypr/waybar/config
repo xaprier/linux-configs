@@ -12,31 +12,29 @@
             "cpu",
             "temperature",
             "memory",
-            "custom/clipboard"
+            "custom/weather",
         ],
         "modules-center": [
             "hyprland/window"
         ],
         "modules-right": [
-            "custom/leftcorner",
             "pulseaudio#input",
             "pulseaudio#output",
             "custom/cava-internal",
-            "custom/rightcorner",
             "network",
-            "custom/leftcorner",
+            "custom/clipboard",
             "custom/wallpaper",
             "battery",
             "custom/screenshot",
             "custom/system",
             "custom/power",
-            "custom/rightcorner",
             "tray"
         ],
         "hyprland/window": {
             "on-scroll-up": "hyprctl dispatch workspace e+1",
             "on-scroll-down": "hyprctl dispatch workspace e-1",
-            "format": "{}"
+            "format": "{title}",
+            "max-length": 36
         },
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -121,6 +119,13 @@
                 ""
             ]
         },
+        "custom/weather": {
+            "format": "{}",
+            "tooltip": true,
+            "interval": 3600,
+            "exec": "~/.config/hypr/scripts/weather.py",
+            "return-type": "json"
+        },
         "network": {
             "format": "⚠  Disabled",
             "format-wifi": "  {essid}",
@@ -148,7 +153,7 @@
             "on-scroll-down": "~/.config/hypr/scripts/volume --dec"
         },
         "custom/power": {
-            "format": "",
+            "format": " ",
             "on-click": "~/.config/hypr/scripts/rofi_powermenu",
             "tooltip": false
         },
@@ -187,31 +192,29 @@
             "cpu",
             "temperature",
             "memory",
-            "custom/clipboard"
+            "custom/weather",
         ],
         "modules-center": [
             "hyprland/window"
         ],
         "modules-right": [
-            "custom/leftcorner",
             "pulseaudio#input",
             "pulseaudio#output",
             "custom/cava-internal",
-            "custom/rightcorner",
             "network",
-            "custom/leftcorner",
+            "custom/clipboard",
             "custom/wallpaper",
             "battery",
             "custom/screenshot",
             "custom/system",
             "custom/power",
-            "custom/rightcorner",
             "tray"
         ],
         "hyprland/window": {
             "on-scroll-up": "hyprctl dispatch workspace e+1",
             "on-scroll-down": "hyprctl dispatch workspace e-1",
-            "format": "{}"
+            "format": "{title}",
+            "max-length": 36
         },
         "hyprland/workspaces": {
             "format": "{icon}",
@@ -236,6 +239,13 @@
             },
             "on-click": "activate"
         },
+        "custom/weather": {
+            "format": "{}",
+            "tooltip": true,
+            "interval": 3600,
+            "exec": "~/.config/hypr/scripts/weather.py",
+            "return-type": "json"
+        },
         "custom/cava-internal": {
             "exec": "sh ~/.config/hypr/scripts/playerinfo",
             "interval": 1,
@@ -250,7 +260,7 @@
             "tooltip": false
         },
         "custom/system": {
-            "format": " 󰒋 ",
+            "format": " 󰒋",
             "on-click": "sh ~/.config/hypr/scripts/rofi_system &",
             "tooltip": false
         },
@@ -324,7 +334,7 @@
             "on-scroll-down": "~/.config/hypr/scripts/volume --dec"
         },
         "custom/power": {
-            "format": "",
+            "format": " ",
             "on-click": "~/.config/hypr/scripts/rofi_powermenu",
             "tooltip": false
         },

@@ -21,8 +21,8 @@ exec gnome-keyring-daemon --daemonize --start --components=gpg,pkcs11,secrets,ss
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec greenclip daemon &
 # Set wallpaper
-swaybg --output 'eDP-1' --mode fill --image /home/xaprier/Pictures/wallpaper/night.png &
-swaybg --output 'HDMI-A-1' --mode fill --image /home/xaprier/Pictures/wallpaper/under_the_night_sky_by_bisbiswas_ddfk819-fullview.jpg &
+swaybg --output 'eDP-1' --mode fill --image /home/xaprier/Pictures/wallpaper/davina1.jpg &
+swaybg --output 'HDMI-A-1' --mode fill --image /home/xaprier/Pictures/wallpaper/davina3.jpg &
 
 # Apply themes
 ~/.config/hypr/scripts/gtkthemes &
