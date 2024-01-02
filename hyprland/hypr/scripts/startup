@@ -7,6 +7,7 @@ killall xdg-desktop-portal
 sleep 2
 /usr/lib/xdg-desktop-portal &
 
+
 # Kill already running process
 _ps=(waybar mako)
 for _prs in "${_ps[@]}"; do
@@ -23,7 +24,8 @@ exec greenclip daemon &
 # Set wallpaper
 swaybg --output 'eDP-1' --mode fill --image /home/xaprier/Pictures/wallpaper/davina1.jpg &
 swaybg --output 'HDMI-A-1' --mode fill --image /home/xaprier/Pictures/wallpaper/davina3.jpg &
-
+#mpvpaper HDMI-A-1 ~/Pictures/wallpaper/mylivewallpapers-com-Astronaut-Portal-FHD.mp4
+#mpvpaper eDP-1 ~/Pictures/wallpaper/mylivewallpapers-com-Drifting-Spaceman.mp4
 # Apply themes
 ~/.config/hypr/scripts/gtkthemes &
 
