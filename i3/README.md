@@ -11,6 +11,8 @@
 - lm_sensors
 - btop
 - pamixer
+- slop
+- xdotool
 - nitrogen(wallpaper-slide)
 - nerd-fonts-git
 - ffcast(screenshot in rofi)
@@ -24,7 +26,8 @@
 ## Installing Dependencies
 
 ```sh
-yay -S i3-wm polybar libinput-gestures rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
+yay -S i3-wm polybar slop xdotool rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
+pip install spotify-cli-linux
 ```
 
 or
