@@ -12,18 +12,24 @@
 #exec xrandr --auto
 set $mod Mod4
 
+set $screen-bg-color                    #222831
+set $bg-color                           #00ADB5
+set $inactive-bg-color                  #393E46
+set $text-color                         #EEEEEE
+set $inactive-text-color                #00ADB5
+set $urgent-bg-color                    #F05454
+set $indicator-color                    #000000
+set $rofi_launcher                      ~/.config/rofi/scripts/rofi_launcher
+set $rofi_runner                        ~/.config/rofi/scripts/rofi_runner
+set $rofi_music                         ~/.config/rofi/scripts/rofi_music
+set $rofi_network                       ~/.config/rofi/scripts/rofi_network
+set $rofi_powermenu                     ~/.config/rofi/scripts/powermenu.sh
+set $rofi_screenshot                    ~/.config/rofi/scripts/rofi_screenshot.sh
+set $colorpicker                        ~/.config/i3/scripts/colorpicker.sh
+set $wallpaper                          nitrogen
+set $rofi_clipboard                     ~/.config/rofi/scripts/rofi_clipboard.sh
 
-set $screen-bg-color     #222831
-set $bg-color            #00ADB5
-set $inactive-bg-color   #393E46
-set $text-color          #EEEEEE
-set $inactive-text-color #00ADB5
-set $urgent-bg-color     #F05454
-set $indicator-color     #000000
-set $rofi-background-color #f2222831
-set $rofi-item-background-color #00222831
-set $rofi-text-color       #EEEEEE
-set $rofi-text-active-color #00ADB5
+exec --no-startup-id                     ~/.config/i3/scripts/startup.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -48,25 +54,31 @@ floating_modifier $mod
 bindsym $mod+r exec kitty
 
 #clipboard
-bindsym $mod+g exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme /home/xaprier/.config/rofi/launchers/type-6/style-7.rasi
+bindsym $mod+g exec $rofi_clipboard
+
+#screenshot
+bindsym $mod+s exec $rofi_screenshot
 
 # kill focused window
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec "/home/xaprier/.config/rofi/launchers/type-7/launcher.sh 0"
+bindsym $mod+d exec $rofi_launcher
 
 # start rofi (window mode)
-bindsym $mod+Tab exec "/home/xaprier/.config/rofi/launchers/type-7/launcher.sh 1"
+bindsym $mod+Tab exec "~/.config/rofi/launchers/type-7/launcher.sh 1"
 
-workspace 1 output HDMI-0 
-workspace 2 output HDMI-0 
-workspace 3 output HDMI-0 
-workspace 4 output eDP-1-1
+workspace 1 output HDMI-0
+workspace 2 output HDMI-0
+workspace 3 output HDMI-0
+workspace 4 output HDMI-0
 workspace 5 output eDP-1-1
 workspace 6 output eDP-1-1
+workspace 7 output eDP-1-1
+workspace 8 output eDP-1-1
+workspace 9 output eDP-1-1
 
-bindsym $mod+P exec "/home/xaprier/.config/rofi/screen-changer/screen-changer.sh"
+bindsym $mod+P exec "~/.config/rofi/scripts/screen-changer.sh"
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -90,7 +102,7 @@ bindsym $mod+v split v
 bindsym $mod+shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -100,7 +112,6 @@ bindsym $mod+space floating toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
 
 set $workspace1 "1:1"
 set $workspace2 "2:2"
@@ -132,16 +143,15 @@ bindsym --whole-window $mod+button4 workspace next_on_output
 bindsym --whole-window $mod+button5 workspace prev_on_output
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
-bindsym $mod+Shift+8 move container to workspace $workspace8
-bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace10
+bindsym $mod+Shift+1 move container to workspace $workspace1; workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2; workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3; workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4; workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5; workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6; workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7; workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8; workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9; workspace $workspace9
 
 
 # reload the configuration file
@@ -152,7 +162,7 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec ./config/i3/scripts/i3-exit
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+x exec $rofi_powermenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -188,37 +198,13 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 default_border pixel 2
 default_floating_border pixel 2
-gaps outer 1
-gaps inner 10
-gaps vertical -7
-gaps top -15
-gaps horizontal 10
-smart_borders on
-smart_borders no_gaps
-hide_edge_borders both
-
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Set colors from Xresources
-# Change 'color7' and 'color2' to whatever colors you want i3 to use 
-# from the generated scheme.
-# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
-# it fails to get colors from Xresources.
-#set_from_resource $fg i3wm.color7 #f0f0f0
-#set_from_resource $bg i3wm.color2 #f0f0f0
-
-# class                 border  backgr. text indicator child_border
-
-#client.unfocused        $bg     $bg     $fg  $bg       $bg
-#client.urgent           $bg     $bg     $fg  $bg       $bg
-#client.placeholder      $bg     $bg     $fg  $bg       $bg
-
-#client.background       $bg
-
 # windows starting in floating mode
+for_window [class=".*"] border pixel 0
 for_window [instance="origin.exe"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
@@ -259,12 +245,9 @@ for_window [class="Solaar"] floating enable
 for_window [class="Gnome-multi-writer"] floating enable
 for_window [class="multibootusb"] floating enable
 for_window [class="Org.gnome.Weather"] floating enable
-for_window [class="Gnome-calendar"] floating enable 
+for_window [class="gnome-calendar"] floating enable 
 for_window [class="gnome-calculator"] floating enable
 for_window [class="feh"] floating enable
-#for_window [class="Connman-gtk"] floating enable
-#for_window [class="qutebrowser"] floating enable
-#for_window [class="cool-retro-term"] resize set 600 740
 
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer --source "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor" -i 5
@@ -285,14 +268,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+k exec code
 bindsym $mod+f exec firefox
-bindsym $mod+t exec nautilus
-bindsym $mod+b exec ~/.config/i3/scripts/wallpaper-change.sh 1
+bindsym $mod+t exec thunar
+bindsym $mod+b exec $wallpaper
 
 # screenshot
-bindsym Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -c -r 
-bindsym Control+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -c -a 
-bindsym Shift+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -f -r 
-bindsym Shift+Control+Print exec ~/.config/rofi/rofi-screenshot/rofi-screenshot.sh -f -a 
+bindsym Print exec ~/.config/rofi/scripts/rofi-screenshot.sh -c -r 
+bindsym Control+Print exec ~/.config/rofi/scripts/rofi-screenshot.sh -c -a 
+bindsym Shift+Print exec ~/.config/rofi/scripts/rofi-screenshot.sh -f -r 
+bindsym Shift+Control+Print exec ~/.config/rofi/scripts/rofi-screenshot.sh -f -a 
 
 # window style
 new_window pixel 1
@@ -303,22 +286,23 @@ hide_edge_borders none
 for_window [class="^.*"] border pixel 2
 gaps inner 6
 gaps outer 2
+border_radius 10
 
 # shut down, restart and locking features
 bindsym $mod+Delete exec clearine
-bindsym $mod+L exec /usr/local/bin/betterlockscreen --lock
+bindsym $mod+L exec /usr/bin/betterlockscreen --lock
 # autostarted applications
 exec --no-startup-id autotiling
+exec_always picom
 #exec_always --no-startup-id wal -R -n
 exec_always --no-startup-id ~/.config/polybar/launchpolybar.sh
 #exec --no-startup-id ~/.fehbg
-exec_always --no-startup-id picom
 exec --no-startup-id xautolock -detectsleep -time 3 -locker "/home/xaprier/.config/i3/scripts/lock.sh" 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
 exec_always --no-startup-id "setxkbmap -layout tr"
-exec "discord"
-# exec_always --no-startup-id polybar
+exec "vesktop"
 exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id ~/.config/i3/scripts/gtkthemes
 exec --no-startup-id /usr/libexec/xfce-polkit
 exec --no-startup-id greenclip daemon

@@ -1,98 +1,44 @@
-#!/usr/bin/env bash
+#!/bin/env bash
 
-## Author  : Aditya Shakya
-## Mail    : adi1090x@gmail.com
-## Github  : @adi1090x
-## Twitter : @adi1090x
+# Options for powermenu
+lock=""
+logout=""
+shutdown=""
+reboot=""
+sleep=""
 
-dir="$HOME/.config/rofi/styles"
-rofi_command="rofi -theme $dir/five.rasi"
+# Get answer from user via rofi
+selected_option=$(echo "$lock
+$logout
+$sleep
+$reboot
+$shutdown" | rofi -dmenu \
+                  -i \
+                  -p "Power" \
+                  -config "~/.config/rofi/themes/powermenu.rasi" \
+                  -font "Symbols Nerd Font 12" \
+                  -width "15" \
+                  -lines 5 \
+                  -line-margin 3 \
+                  -line-padding 10 \
+                  -scrollbar-width "0")
 
-uptime=$(uptime -p | sed -e 's/up //g')
-
-# Options
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
-
-# Confirmation
-confirm_exit() {
-	rofi -dmenu\
-		-i\
-		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
-		-theme $dir/confirm.rasi
-}
-
-# Message
-msg() {
-	rofi -theme "$dir/message.rasi" -e "Available Options  -  yes / y / no / n"
-}
-
-# Variable passed to rofi
-options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
-
-chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
-case $chosen in
-    $shutdown)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			loginctl poweroff
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $reboot)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			loginctl reboot
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
-			i3lock
-		elif [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
-		fi
-        ;;
-    $suspend)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			loginctl suspend
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $logout)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-					if [[ "$DESKTOP_SESSION" == "/usr/share/xsessions/voidwm" ]]; then
-						pkill dwm
-					elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-						bspc quit
-					elif [[ "$DESKTOP_SESSION" == "/usr/share/xsessions/i3" ]]; then
-						i3-msg exit
-					elif [[ "$DESKTOP_SESSION" == "/usr/local/bin/dwm" ]]; then
-						pkill dwm
-					elif [[ "$DESKTOP_SESSION" == "awesome" ]]; then
-						pkill awesome
-          else
-            pkill Hyprland
-          fi
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-esac
+# Do something based on selected option
+if [ "$selected_option" == "$lock" ]; then
+    /usr/bin/betterlockscreen --lock
+elif [ "$selected_option" == "$logout" ]; then
+    if pgrep i3; then
+        i3-msg exit
+    elif pgrep Hyprland; then
+        hyprctl dispatch exit
+    fi
+elif [ "$selected_option" == "$shutdown" ]; then
+    systemctl poweroff
+elif [ "$selected_option" == "$reboot" ]; then
+    systemctl reboot
+elif [ "$selected_option" == "$sleep" ]; then
+    amixer set Master mute
+    systemctl suspend
+else
+    echo "No match"
+fi

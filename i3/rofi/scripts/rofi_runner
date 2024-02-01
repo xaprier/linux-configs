@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Import Current Theme
+DIR="$HOME/.config/hypr"
+RASI="$DIR/rofi/runner.rasi"
+
+# Run
+rofi \
+    -show run \
+	-theme ${RASI}
