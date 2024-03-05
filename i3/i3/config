@@ -124,6 +124,26 @@ set $workspace8 "8:8"
 set $workspace9 "9:9"
 set $workspace10 "10:10"
 
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+
+set $i3l spiral 0.5 to workspace $ws1
+set $i3l spiral 0.5 to workspace $ws2
+set $i3l spiral 0.5 to workspace $ws3
+set $i3l spiral 0.5 to workspace $ws4
+set $i3l spiral 0.5 to workspace $ws5
+set $i3l spiral 0.5 to workspace $ws6
+set $i3l spiral 0.5 to workspace $ws7
+set $i3l spiral 0.5 to workspace $ws8
+set $i3l spiral 0.5 to workspace $ws9
+
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
 bindsym $mod+2 workspace $workspace2
@@ -187,6 +207,11 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+bindsym $mod+Ctrl+Right resize shrink width 2 px or 2 ppt
+bindsym $mod+Ctrl+Up resize grow height 2 px or 2 ppt
+bindsym $mod+Ctrl+Down resize shrink height 2 px or 2 ppt
+bindsym $mod+Ctrl+Left resize grow width 2 px or 2 ppt
 
 # window colors
 # class                 border  backgr. text    indicator child_border
@@ -280,29 +305,30 @@ bindsym Shift+Control+Print exec ~/.config/rofi/scripts/rofi-screenshot.sh -f -a
 # window style
 new_window pixel 1
 new_float normal 1
-hide_edge_borders none
+hide_edge_borders yes
 
 # i3 gaps
-for_window [class="^.*"] border pixel 2
-gaps inner 6
-gaps outer 2
-border_radius 10
+for_window [class="^.*"] border pixel 1
+gaps inner 4
+gaps outer 4
+# border_radius 10
 
 # shut down, restart and locking features
 bindsym $mod+Delete exec clearine
 bindsym $mod+L exec /usr/bin/betterlockscreen --lock
+
 # autostarted applications
 exec --no-startup-id autotiling
-exec_always picom
-#exec_always --no-startup-id wal -R -n
+exec --no-startup-id libinput-gestures
+exec_always --no-startup-id picom --experimental-backend
 exec_always --no-startup-id ~/.config/polybar/launchpolybar.sh
-#exec --no-startup-id ~/.fehbg
 exec --no-startup-id xautolock -detectsleep -time 3 -locker "/home/xaprier/.config/i3/scripts/lock.sh" 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id mpd
 exec_always --no-startup-id "setxkbmap -layout tr"
-exec "vesktop"
+exec --no-startup-id "vesktop"
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id ~/.config/i3/scripts/gtkthemes
 exec --no-startup-id /usr/libexec/xfce-polkit
 exec --no-startup-id greenclip daemon
+exec_always --no-startup-id /home/xaprier/python-env/bin/i3-layouts

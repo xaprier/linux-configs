@@ -6,7 +6,7 @@
 - polybar
 - rofi(catppuccin)
 - playerctl
-- picom
+- [https://github.com/jonaburg/picom](picom)
 - feh(wallpaper-change)
 - lm_sensors
 - btop
@@ -26,19 +26,20 @@
 ## Installing Dependencies
 
 ```sh
-yay -S i3-wm polybar slop xdotool rofi playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
+yay -S i3-wm polybar slop xdotool rofi playerctl feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
 pip install spotify-cli-linux
 ```
+Picom must be installed via another Github repository: https://github.com/jonaburg/picom
 
 or
 
 ```sh
-paru -S i3-wm polybar rofi libinput-gestures playerctl picom feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
+paru -S i3-wm polybar rofi libinput-gestures playerctl feh lm_sensors btop pamixer nitrogen nerd-fonts-git xclip ffcast dunst
 ```
 
 ## Installing configs
 ```sh
-cp -r i3 neofetch polybar rofi ~/.config
+cp -r i3 neofetch polybar rofi picom ~/.config
 ````
 
 ## Do not forget to
