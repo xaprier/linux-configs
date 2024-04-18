@@ -4,7 +4,7 @@
 
 - i3
 - polybar
-- rofi(catppuccin)
+- rofi([catppuccin](https://github.com/catppuccin/rofi))
 - playerctl
 - [https://github.com/jonaburg/picom](picom)
 - feh(wallpaper-change)
