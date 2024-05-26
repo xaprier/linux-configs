@@ -10,11 +10,11 @@ alias trim_all="sudo fstrim -va"
 alias mkgrub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias mtar='tar -zcvf' # mtar <archive_compress>
 alias utar='tar -zxvf' # utar <archive_decompress> <file_list>
-alias z='zip -r'       # z <archive_compress> <file_list>
-alias uz='unzip'       # uz <archive_decompress> -d <dir>
+alias z='zip -r' # z <archive_compress> <file_list>
+alias uz='unzip' # uz <archive_decompress> -d <dir>
 alias sr='source ~/.config/zsh/env.zsh'
 alias ..="cd .."
-alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e" 
 alias mkdir="mkdir -p"
 alias fm='ranger'
 alias pacin="pacman -Slq | fzf -m --preview 'cat <(pacman -Si {1}) <(pacman -Fl {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
@@ -223,5 +223,6 @@ alias hepsinimzala="git rebase -i --root --exec 'git commit --amend --no-edit -n
 # alias kamera="sudo scrcpy -b 8M -w --v4l2-sink=/dev/video3 --no-display --v4l2-buffer 0"
 # alias kamera-wifi="adb tcpip 5555 && adb connect 192.168.1.53:5555"
 alias prime-run="__NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia"
+alias ekranduzelt="xrandr --output HDMI-0 --mode 1920x1080 --rate 144; xrandr --output eDP-1-1 --mode 1920x1080 --rate 60; xrandr --output eDP-1-1 --mode 1920x1080 --rate 120.11"
 alias monitorev="xrandr --output HDMI-0 --mode 1920x1080 --rate 144 --right-of eDP-1-1"
 alias monitoris="xrandr --output HDMI-0 --mode 1920x1080 --rate 60 --left-of eDP-1-1"
