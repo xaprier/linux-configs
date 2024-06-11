@@ -101,8 +101,8 @@ entry {
 
 listview {
     enabled:                     true;
-    columns:                     3;
-    lines:						 5;
+    columns:                     1;
+    lines:						 9;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
