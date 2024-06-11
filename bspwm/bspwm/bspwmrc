@@ -17,6 +17,15 @@ PATH="$HOME/.config/bspwm/scripts:$PATH"
 rice_dir="$HOME/.config/bspwm/rices/$RICETHEME"
 export XDG_CURRENT_DESKTOP='bspwm'
 
+# GTK Theming
+export GTK_THEME="WhiteSur-Dark"
+gsettings set org.gnome.desktop.interface icon-theme WhiteSur-Dark
+gsettings set org.gnome.desktop.interface gtk-theme WhiteSur-Dark
+
+# KDE Theming
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=kvantum
+
 ## Fix java applications
 export _JAVA_AWT_WM_NONREPARENTING=1
 

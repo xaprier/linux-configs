@@ -22,11 +22,11 @@ super + alt + Return
 	OpenApps --floating
 
 # Application menu
-super + @space
+super + d
 	OpenApps --menu
 
 # Open apps
-super + {f,t,p,k}
+alt + {f,t,p,k}
 	OpenApps {--browser, --filemanager, --soundcontrol, --code}
 
 # Terminal apps (ranger, nvim, ncmpcpp)
@@ -118,7 +118,7 @@ super + m
 	bspc desktop -l next
 
 # set the window state
-super + {t,shift + t,s,f}
+super + {t,shift + t,@space,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
