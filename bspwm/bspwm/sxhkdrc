@@ -33,6 +33,10 @@ alt + {f,t,p,k}
 shift + alt + {r,v,k}
 	OpenApps {--ranger,--nvim,--music}
 
+# rofi apps(screenshot)
+super + s
+	OpenApps --screenshot
+
 
 #|||----- System Keybindings -----|||#
 
