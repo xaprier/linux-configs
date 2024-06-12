@@ -83,6 +83,8 @@ bspc rule -a scratch sticky=on state=floating focus=on
 # Terminate already running polybar, stalonetray, sxhkd and dunst instances
 processes=("sxhkd" "polybar" "dunst" "eww.*bar")
 
+greenclip daemon &
+
 for process in "${processes[@]}"; do
     if pgrep -f "$process"; then
         pkill -f "$process" >/dev/null
