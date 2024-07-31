@@ -210,6 +210,14 @@ set_launcher_config() {
 		-e 's/\(selected: \).*/\1#8677cf;/' \
 		-e "s/rices\/[[:alnum:]\-]*/rices\/${RICETHEME}/g"
 
+	sed -i "$HOME/.config/bspwm/scripts/Screenshot.rasi" \
+		-e '22s/\(font: \).*/\1"Terminess Nerd Font Mono Bold 10";/' \
+		-e 's/\(background: \).*/\1#14171c;/' \
+		-e 's/\(background-alt: \).*/\1#14171cE0;/' \
+		-e 's/\(foreground: \).*/\1#b8bfe5;/' \
+		-e 's/\(selected: \).*/\1#8677cf;/' \
+		-e "s/rices\/[[:alnum:]\-]*/rices\/${RICETHEME}/g"
+
 	# NetworkManager launcher
 	sed -i "$HOME/.config/bspwm/scripts/NetManagerDM.rasi" \
 		-e '12s/\(background: \).*/\1#14171c;/' \

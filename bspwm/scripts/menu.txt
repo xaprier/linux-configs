@@ -1,5 +1,5 @@
 Terminal,OpenApps --floating,terminal
-Web Browser,OpenApps --browser,internet-web-browser
+Web Browser,OpenApps --browser,floorp
 File Manager,OpenApps --filemanager,org.xfce.thunar
 ^sep()
 
@@ -29,10 +29,10 @@ Silvia,echo silvia > ~/.config/bspwm/.rice ; bspc wm -r,colors
 z0mbi3,echo z0mbi3 > ~/.config/bspwm/.rice ; bspc wm -r,colors
 
 ^tag(favorites)
-Editor,OpenApps --editor,standard-notes
 Neovim,OpenApps --nvim,nvim
-Firefox,OpenApps --browser,firefox
-Retroarch,retroarch,retroarch
+Hidamari,hidamari,io.github.jeffshee.Hidamari
+NoiseTorch,noisetorch,noisetorch
+Visual Studio Code,code,code
 
 ^tag(wg)
 User Card,OpenApps --usercard,system-users

@@ -56,7 +56,7 @@ case "$1" in
     thunar
     ;;
 --browser)
-    firefox
+    floorp
     ;;
 --editor)
     geany
@@ -70,6 +70,9 @@ case "$1" in
 --soundcontrol)
     pavucontrol
     ;;
+--screenshot)
+    ~/.config/bspwm/scripts/Screenshot.sh
+    ;;
     # Eww Widgets
 --KeyHelp)
     eww -c "$WIDGET_DIR" open --toggle csheet
@@ -81,7 +84,7 @@ case "$1" in
     eww -c "$WIDGET_DIR" open --toggle launchermenu
     ;;
 --player)
-    eww -c "$WIDGET_DIR" open --toggle music
+    ~/.config/bspwm/scripts/Music
     ;;
 --calendar)
     eww -c "$WIDGET_DIR" open --toggle date

@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Import Current Theme
+bspwm_dir="$HOME/.config/bspwm"
+rasi_file="$bspwm_dir/scripts/Music.rasi"
+
+# Theme Elements
+status=""
+if [[ $(playerctl status 2>/dev/null) == "Playing" ]]; then
+	status=1
+else
+	status=0
+fi
+
+if [[ -z "$status" ]]; then
+	prompt=''
+	mesg="No music playing"
+else
+	prompt="$(playerctl metadata artist) | $(playerctl metadata album)"
+	mesg="$(playerctl metadata title)"
+fi
+
+if [[ $status == 1 ]]; then
+	option_1=""
+else
+	option_1=""
+fi
+option_2=""
+option_3=""
+
+# Rofi CMD
+rofi_cmd() {
+	rofi -dmenu \
+		-p "$prompt" \
+		-mesg "$mesg" \
+		-markup-rows \
+		-theme $rasi_file
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+	echo -e "$option_2\n$option_1\n$option_3" | rofi_cmd
+}
+
+# Execute Command
+icon=$(playerctl metadata mpris:artUrl | sed 's/file:\/\///g')
+if [[ -z "$icon" ]]; then
+	icon="$HOME/.config/hypr/mako/icons/music.png"
+fi
+notify_song="notify-send -h string:x-canonical-private-synchronous:sys-notify-song -u low -i ${icon}"
+run_cmd() {
+	if [[ "$1" == '--opt1' ]]; then
+		playerctl play-pause && ${notify_song} Played/Paused "$(playerctl metadata artist) - $(playerctl metadata title)"
+	elif [[ "$1" == '--opt2' ]]; then
+		playerctl next && ${notify_song} Skipped "$(playerctl metadata artist) - $(playerctl metadata title) to next"
+	elif [[ "$1" == '--opt3' ]]; then
+		playerctl previous && ${notify_song} Skipped "$(playerctl metadata artist) - $(playerctl metadata title) to previous"
+	fi
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+$option_1)
+	run_cmd --opt1
+	;;
+$option_2)
+	run_cmd --opt2
+	;;
+$option_3)
+	run_cmd --opt3
+	;;
+esac
