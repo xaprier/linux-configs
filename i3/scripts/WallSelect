@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+# Get Old Feh Wallpapers
+# Initialize an empty array
+wallpapers=()
+
+# Read the paths from ~/.fehbg
+while IFS= read -r line; do
+    # Split the line into an array using space as the delimiter
+    read -ra parts <<<"$line" # Read the line into an array
+
+    # Check if there are more than 3 items
+    if [[ ${#parts[@]} -gt 3 ]]; then
+        # Append all items after the 3rd to the wallpapers array
+        for ((i = 3; i < ${#parts[@]}; i += 2)); do
+            # Remove single quotes and append
+            wallpaper="${parts[i]//\'/}"
+            wallpapers+=("$wallpaper")
+        done
+    fi
+done <~/.fehbg
+
+# Get the current mouse position using xdotool
+mouse_location=$(xdotool getmouselocation)
+X=$(echo "$mouse_location" | grep -oP 'x:\K\d+')
+Y=$(echo "$mouse_location" | grep -oP 'y:\K\d+')
+
+# Get the output from xrandr
+xrandr_output=$(xrandr --query)
+
+# Initialize variables
+current_monitor=""
+monitors=()
+
+# Loop through each line of the xrandr output
+while IFS= read -r line; do
+    if [[ $line == *" connected "* ]]; then
+        monitor_name=$(echo "$line" | awk '{print $1}')
+        monitor_position=$(echo "$line" | grep -oP '(?<=\+)\d+')
+        monitor_x=$(echo "$monitor_position" | grep -oP '\d+' | sed -n '1p')
+        monitor_y=$(echo "$monitor_position" | grep -oP '\d+' | sed -n '2p')
+        monitor_resolution=$(echo "$line" | grep -oP '\d+x\d+')
+        monitor_width=$(echo "$monitor_resolution" | cut -d'x' -f1)
+
+        monitors+=("$monitor_x:$monitor_name") # Store X position and monitor name
+
+        # Check if the mouse position is within the monitor's range
+        if [[ "$X" -ge "$monitor_x" && "$X" -lt "$((monitor_x + monitor_width))" ]]; then
+            current_monitor="$monitor_name"
+        fi
+    fi
+done <<<"$xrandr_output"
+
+# Sort monitors based on their X position
+IFS=$'\n' sorted_monitors=($(sort -n <<<"${monitors[*]}"))
+unset IFS
+currentIndex=0
+# Output the current monitor and its position
+if [[ -n "$current_monitor" ]]; then
+    # echo "Current Monitor: $current_monitor"
+
+    # Get the index of the current monitor in the sorted array
+    for index in "${!sorted_monitors[@]}"; do
+        if [[ "${sorted_monitors[index]#*:}" == "$current_monitor" ]]; then
+            # echo "Index of Current Monitor: $index"
+            currentIndex=$index
+            break
+        fi
+    done
+else
+    echo "No active monitor found under the mouse pointer."
+    exit 1
+fi
+
+# Output all monitors in left-to-right order
+# echo "Monitors (left to right):"
+# for monitor in "${sorted_monitors[@]}"; do
+#     echo "${monitor#*:}" # Display only the monitor name
+# done
+
+# Verifies if xdpyinfo and imagemagick are installed
+if ! command -v xdpyinfo >/dev/null 2>&1; then
+    dunstify "Missing package" "Please install the xorg-xdpyinfo package to continue" -u critical
+    exit 1
+elif ! command -v convert >/dev/null 2>&1; then
+    dunstify "Missing package" "Please install the imagemagick package to continue" -u critical
+    exit 1
+fi
+
+# Set some variables
+wall_dir="${HOME}/.config/i3/walls"
+cacheDir="${HOME}/.cache/$(whoami)/${RICETHEME}"
+rofi_command="rofi -dmenu -theme ${HOME}/.config/i3/scripts/WallSelect.rasi -theme-str ${rofi_override}"
+
+monitor_res=$(xdpyinfo | awk '/dimensions/{print $2}' | cut -d 'x' -f1)
+monitor_scale=$(xdpyinfo | awk '/resolution/{print $2}' | cut -d 'x' -f1)
+monitor_res=$((monitor_res * 17 / monitor_scale))
+rofi_override="element-icon{size:${monitor_res}px;border-radius:0px;}"
+
+# Create cache dir if not exists
+if [ ! -d "${cacheDir}" ]; then
+    mkdir -p "${cacheDir}"
+fi
+
+# Convert images in directory and save to cache dir
+for imagen in "$wall_dir"/*.{jpg,jpeg,png,webp}; do
+    if [ -f "$imagen" ]; then
+        nombre_archivo=$(basename "$imagen")
+        if [ ! -f "${cacheDir}/${nombre_archivo}" ]; then
+            convert -strip "$imagen" -thumbnail 500x500^ -gravity center -extent 500x500 "${cacheDir}/${nombre_archivo}"
+        fi
+    fi
+done
+
+# Launch rofi
+wall_selection=$(find "${wall_dir}" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -exec basename {} \; | sort | while read -r A; do echo -en "$A\x00icon\x1f""${cacheDir}"/"$A\n"; done | $rofi_command)
+
+# check selection
+[[ -n "$wall_selection" ]] || exit 1
+
+command="feh --no-fehbg "
+# Fill the wallpapers array to match the number of monitors
+for ((i = 0; i < ${#monitors[@]}; i++)); do
+    if [[ $i -eq $currentIndex ]]; then
+        wallpapers[i]="${wall_dir}/${wall_selection}" # Update current monitor's wallpaper
+    else
+        # If it's not the current monitor, fill it with the selected wallpaper if it's empty
+        wallpapers[i]="${wallpapers[i]:-${wall_dir}/${wall_selection}}"
+    fi
+
+    command+="--bg-fill ${wallpapers[i]} "
+done
+
+# set wallpaper
+dunstify "Wallpaper Changed" "Wallpaper set to $wall_selection on $current_monitor" -u normal
+
+# Prepend the shebang to ~/.fehbg if not present
+echo "#!/bin/sh" >~/.fehbg
+echo $command >>~/.fehbg
