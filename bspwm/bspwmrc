@@ -18,9 +18,10 @@ rice_dir="$HOME/.config/bspwm/rices/$RICETHEME"
 export XDG_CURRENT_DESKTOP='bspwm'
 
 # GTK Theming
-export GTK_THEME="WhiteSur-Dark"
-gsettings set org.gnome.desktop.interface icon-theme WhiteSur-Dark
-gsettings set org.gnome.desktop.interface gtk-theme WhiteSur-Dark
+export GTK_THEME="Catppuccin-Macchiato-Standard-Teal-Dark"
+gsettings set org.gnome.desktop.interface icon-theme WhiteSur
+gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Macchiato-Standard-Teal-Dark
+gsettings set org.gnome.desktop.interface cursor-theme Qogir-Dark
 
 # KDE Theming
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -38,8 +39,8 @@ xrandr --output eDP-1-1 --mode 1920x1080 --rate 120.11
 #  ╦ ╦╔═╗╦═╗╦╔═╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
 #  ║║║║ ║╠╦╝╠╩╗╚═╗╠═╝╠═╣║  ║╣ ╚═╗
 #  ╚╩╝╚═╝╩╚═╩ ╩╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-INTERNAL_MONITOR="eDP-1-1"
-EXTERNAL_MONITOR="HDMI-0"
+INTERNAL_MONITOR="eDP-1"
+EXTERNAL_MONITOR="HDMI-1-0"
 if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
     bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4
     bspc monitor "$INTERNAL_MONITOR" -d 5 6 7 8 9 10
@@ -81,9 +82,10 @@ bspc rule -a scratch sticky=on state=floating focus=on
 . SetSysVars
 
 # Terminate already running polybar, stalonetray, sxhkd and dunst instances
-processes=("sxhkd" "polybar" "dunst" "eww.*bar")
+processes=("sxhkd" "polybar" "dunst" "eww.*bar" "hidamari*" "picom")
 
 greenclip daemon &
+nm-applet &
 
 for process in "${processes[@]}"; do
     if pgrep -f "$process"; then
@@ -103,7 +105,7 @@ sxhkd -c "$HOME"/.config/bspwm/sxhkdrc &
 
 # Launch picom // If you have old hardware or encounter problems
 # uncomment the picom "--legacy-backends" line and comment the current one.
-pidof -q picom || { picom --config "$HOME"/.config/bspwm/picom.conf & }
+pidof -q picom || { picom --experimental-backend --config "$HOME"/.config/bspwm/picom.conf & }
 #pidof -q picom || { picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf & }
 
 # Launch dunst notification daemon
@@ -115,4 +117,6 @@ pidof -q eww || { eww -c "$HOME"/.config/bspwm/eww daemon & }
 # Launch polkit
 pidof -q polkit-gnome-authentication-agent-1 || { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
 
-pidof -q vesktop || { vesktop & }
+#pidof -q vesktop || { vesktop & }
+
+pidof -q hidamari || { hidamari -b & }

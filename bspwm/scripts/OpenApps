@@ -56,10 +56,10 @@ case "$1" in
     thunar
     ;;
 --browser)
-    floorp
+    flatpak run io.github.zen_browser.zen
     ;;
 --editor)
-    geany
+    xed
     ;;
 --telegram)
     telegram-desktop
@@ -71,7 +71,7 @@ case "$1" in
     pavucontrol
     ;;
 --screenshot)
-    ~/.config/bspwm/scripts/Screenshot.sh
+    flameshot gui
     ;;
     # Eww Widgets
 --KeyHelp)
@@ -84,7 +84,7 @@ case "$1" in
     eww -c "$WIDGET_DIR" open --toggle launchermenu
     ;;
 --player)
-    ~/.config/bspwm/scripts/Music
+    eww -c "$WIDGET_DIR" open --toggle music
     ;;
 --calendar)
     eww -c "$WIDGET_DIR" open --toggle date

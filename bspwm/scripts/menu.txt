@@ -1,5 +1,5 @@
-Terminal,OpenApps --floating,terminal
-Web Browser,OpenApps --browser,floorp
+Terminal,OpenApps --floating,kitty
+Web Browser,OpenApps --browser,zen_browser
 File Manager,OpenApps --filemanager,org.xfce.thunar
 ^sep()
 

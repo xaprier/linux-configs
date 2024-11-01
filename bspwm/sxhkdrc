@@ -26,8 +26,8 @@ super + d
 	OpenApps --menu
 
 # Open apps
-alt + {f,t,p,k}
-	OpenApps {--browser, --filemanager, --soundcontrol, --code}
+super + {F1,F2,F3,F4,F5}
+	OpenApps {--browser, --filemanager, --editor, --code, --soundcontrol}
 
 # Terminal apps (ranger, nvim, ncmpcpp)
 shift + alt + {r,v,k}
@@ -36,7 +36,6 @@ shift + alt + {r,v,k}
 # rofi apps(screenshot)
 super + s
 	OpenApps --screenshot
-
 
 #|||----- System Keybindings -----|||#
 
@@ -58,7 +57,7 @@ super + alt + o
 
 # Power off, Reboot, Log out, Lockscreen, kill an app
 ctrl + super + alt + {p,r,q,l,k}
-	{systemctl poweroff, systemctl reboot,bspc quit,~/.config/bspwm/scripts/Lock,xkill}
+	{systemctl poweroff, systemctl reboot,bspc quit,i3lockmore --image-fill ~/.config/i3/walls/Arch_Linux.png,xkill}
 
 # Hide/Show Bar (Polybar and/or eww)
 super + alt + {h,u}
@@ -71,22 +70,6 @@ ctrl + super + {plus,minus,equal}
 # Random wallpaper
 super + b
 	WallSelect
-
-# Screenshot Now
-Print
-	ScreenShoTer --now
-
-# Screenshot Select
-ctrl + Print
-	ScreenShoTer --sel
-
-# Screenshot in 10s
-alt + Print
-	ScreenShoTer --in10
-
-# Screenshot active window
-shift + Print
-	ScreenShoTer --active
 
 # Manage brightness
 XF86MonBrightness{Up,Down}
@@ -132,7 +115,7 @@ super + shift + h
 #####
 
 # rotate desktop
-super + alt + r
+super + v
 	bspc node @/ --rotate {90,-90}
 
 # Change focus of the Node or Swap Nodes
@@ -174,3 +157,5 @@ ctrl + shift + alt + {Left,Down,Up,Right}
 # move a floating window
 super + alt + shift + {Left,Down,Up,Right}
 	bspc node -v {-10 0,0 10,0 -10,10 0}
+
+# Resize

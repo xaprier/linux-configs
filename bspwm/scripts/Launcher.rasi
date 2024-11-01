@@ -8,7 +8,7 @@ configuration {
 	application-fallback-icon: 	"Adwaita";
     show-icons:                 true;
 	drun-display-format:        "{name}";
-	disable-history:            true;
+	disable-history:            false;
 	sidebar-mode: 				false;
 	
 	hover-select:				true;
