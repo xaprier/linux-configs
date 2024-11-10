@@ -78,16 +78,16 @@ case "$1" in
     eww -c "$WIDGET_DIR" open --toggle csheet
     ;;
 --powermenu)
-    eww -c "$WIDGET_DIR" open --toggle powermenu
+    ~/.config/bspwm/scripts/Powermenu
     ;;
 --usercard)
     eww -c "$WIDGET_DIR" open --toggle launchermenu
     ;;
 --player)
-    eww -c "$WIDGET_DIR" open --toggle music
+    ~/.config/bspwm/scripts/Music
     ;;
 --calendar)
-    eww -c "$WIDGET_DIR" open --toggle date
+    gnome-calendar
     ;;
 *)
     echo "Invalid Option"

@@ -39,9 +39,9 @@ xrandr --output eDP-1-1 --mode 1920x1080 --rate 120.11
 #  ╦ ╦╔═╗╦═╗╦╔═╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
 #  ║║║║ ║╠╦╝╠╩╗╚═╗╠═╝╠═╣║  ║╣ ╚═╗
 #  ╚╩╝╚═╝╩╚═╩ ╩╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-INTERNAL_MONITOR="eDP-1"
-EXTERNAL_MONITOR="HDMI-1-0"
-if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
+INTERNAL_MONITOR=$(xrandr -q | grep -oP 'eDP-[0-9-]+(?=\sconnected)')
+EXTERNAL_MONITOR=$(xrandr -q | grep -oP 'HDMI-[0-9-]+(?=\sconnected)')
+if [[ $EXTERNAL_MONITOR ]]; then
     bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4
     bspc monitor "$INTERNAL_MONITOR" -d 5 6 7 8 9 10
     bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
@@ -82,10 +82,11 @@ bspc rule -a scratch sticky=on state=floating focus=on
 . SetSysVars
 
 # Terminate already running polybar, stalonetray, sxhkd and dunst instances
-processes=("sxhkd" "polybar" "dunst" "eww.*bar" "hidamari*" "picom")
+processes=("sxhkd" "polybar" "dunst" "eww.*bar" "hidamari*" "picom" "cava" "Cava.sh")
 
 greenclip daemon &
 nm-applet &
+libinput-gestures -c ~/.config/libinput-gestures.conf &
 
 for process in "${processes[@]}"; do
     if pgrep -f "$process"; then
