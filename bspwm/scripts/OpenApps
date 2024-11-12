@@ -56,7 +56,7 @@ case "$1" in
     thunar
     ;;
 --browser)
-    flatpak run io.github.zen_browser.zen
+    brave
     ;;
 --editor)
     xed

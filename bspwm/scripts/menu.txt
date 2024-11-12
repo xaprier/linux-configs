@@ -1,5 +1,5 @@
 Terminal,OpenApps --floating,kitty
-Web Browser,OpenApps --browser,zen_browser
+Web Browser,OpenApps --browser,brave-desktop
 File Manager,OpenApps --filemanager,org.xfce.thunar
 ^sep()
 
