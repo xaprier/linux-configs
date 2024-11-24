@@ -81,43 +81,38 @@ bspc rule -a scratch sticky=on state=floating focus=on
 # Set system vars for polybar
 . SetSysVars
 
+# Launch required programs ensuring they start only once
+function start_once() {
+    local program=$1
+    shift
+    if ! pgrep -f "$program" >/dev/null; then
+        "$@" &
+    fi
+}
+
 # Terminate already running polybar, stalonetray, sxhkd and dunst instances
 processes=("sxhkd" "polybar" "dunst" "eww.*bar" "hidamari*" "picom" "cava" "Cava.sh")
 
-greenclip daemon &
-nm-applet &
-libinput-gestures -c ~/.config/libinput-gestures.conf &
-
 for process in "${processes[@]}"; do
-    if pgrep -f "$process"; then
+    if pgrep -f "$process" >/dev/null; then
         pkill -f "$process" >/dev/null
-        sleep 0.25
+        # Wait for process termination
+        while pgrep -f "$process" >/dev/null; do
+            sleep 0.1
+        done
     fi
 done
 
 # Load bspwm conf, colors, dunst, bars and/or eww widgets
 . "${rice_dir}"/Theme.sh
 
-# set random wallpaper
-feh -z --no-fehbg --bg-fill "$HOME"/.config/bspwm/walls
-
-# Reload sxhkd daemon
-sxhkd -c "$HOME"/.config/bspwm/sxhkdrc &
-
-# Launch picom // If you have old hardware or encounter problems
-# uncomment the picom "--legacy-backends" line and comment the current one.
-pidof -q picom || { picom --experimental-backend --config "$HOME"/.config/bspwm/picom.conf & }
-#pidof -q picom || { picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf & }
-
-# Launch dunst notification daemon
-dunst -config "$HOME"/.config/bspwm/dunstrc &
-
-# Launch eww daemon
-pidof -q eww || { eww -c "$HOME"/.config/bspwm/eww daemon & }
-
-# Launch polkit
-pidof -q polkit-gnome-authentication-agent-1 || { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
-
-#pidof -q vesktop || { vesktop & }
-
-pidof -q hidamari || { hidamari -b & }
+start_once greenclip greenclip daemon
+start_once nm-applet nm-applet
+start_once libinput-gestures libinput-gestures -c ~/.config/libinput-gestures.conf
+start_once xautolock xautolock -time 5 -locker "$HOME/.config/bspwm/scripts/AutoLock.sh"
+start_once sxhkd sxhkd -c "$HOME/.config/bspwm/sxhkdrc"
+start_once picom picom --experimental-backend --config "$HOME/.config/bspwm/picom.conf"
+start_once dunst dunst -config "$HOME/.config/bspwm/dunstrc"
+start_once eww eww -c "$HOME/.config/bspwm/eww daemon"
+start_once polkit-gnome-authentication-agent-1 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+start_once hidamari hidamari -b

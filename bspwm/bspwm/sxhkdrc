@@ -43,6 +43,10 @@ super + s
 alt + @space
 	RiceSelector
 
+# background Selector
+alt + b
+	WallSelect
+
 #Terminal Selector
 super + alt + t
 	Term --selecterm
@@ -57,7 +61,7 @@ super + alt + o
 
 # Power off, Reboot, Log out, Lockscreen, kill an app
 ctrl + super + alt + {p,r,q,l,k}
-	{systemctl poweroff, systemctl reboot,bspc quit,i3lockmore --image-fill ~/.config/i3/walls/Arch_Linux.png,xkill}
+	{systemctl poweroff, systemctl reboot,bspc quit,betterlockscreen -l,xkill}
 
 # Hide/Show Bar (Polybar and/or eww)
 super + alt + {h,u}
