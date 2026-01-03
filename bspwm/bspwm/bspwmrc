@@ -31,16 +31,16 @@ export QT_STYLE_OVERRIDE=kvantum
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # dual monitor handling
-if xrandr -q | grep 'HDMI-0 connected'; then
-    xrandr --output HDMI-0 --mode 1920x1080 --rate 144 --right-of eDP-1-1
+INTERNAL_MONITOR=$(xrandr -q | grep -oP 'eDP-[0-9-]+(?=\sconnected)')
+EXTERNAL_MONITOR=$(xrandr -q | grep -oP 'HDMI-[0-9-]+(?=\sconnected)')
+if xrandr -q | grep -q "^${EXTERNAL_MONITOR} connected"; then
+    xrandr --output $EXTERNAL_MONITOR --mode 1920x1080 --rate 144 --right-of $INTERNAL_MONITOR
 fi
-xrandr --output eDP-1-1 --mode 1920x1080 --rate 120.11
+xrandr --output $INTERNAL_MONITOR --mode 1920x1080 --rate 120.11
 
 #  ╦ ╦╔═╗╦═╗╦╔═╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
 #  ║║║║ ║╠╦╝╠╩╗╚═╗╠═╝╠═╣║  ║╣ ╚═╗
 #  ╚╩╝╚═╝╩╚═╩ ╩╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-INTERNAL_MONITOR=$(xrandr -q | grep -oP 'eDP-[0-9-]+(?=\sconnected)')
-EXTERNAL_MONITOR=$(xrandr -q | grep -oP 'HDMI-[0-9-]+(?=\sconnected)')
 if [[ $EXTERNAL_MONITOR ]]; then
     bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4
     bspc monitor "$INTERNAL_MONITOR" -d 5 6 7 8 9 10

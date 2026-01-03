@@ -3,9 +3,8 @@
 # Settings
 declare -a LIST_OF_WINDOW_TITLES_THAT_PREVENT_LOCKING=(
   "YouTube"
-  "Google Chrome"
-  "Chromium"
-  "Brave"
+  "vlc"
+  "mpv"
 )
 
 # Dependencies
