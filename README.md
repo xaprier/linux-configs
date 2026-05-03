@@ -21,8 +21,6 @@
 # linux-configs
 My Linux Desktop Configuration files
 
-- [i3 configs](https://github.com/xaprier/linux-configs/tree/main/i3)
-- [hyprland configs](https://github.com/xaprier/linux-configs/tree/main/hyprland)
-- [bspwm configs](https://github.com/xaprier/linux-configs/tree/main/bspwm)
+- [terminal configs](https://github.com/xaprier/linux-configs/tree/main/terminal)
+- [hyprland configs](https://github.com/xaprier/linux-configs/tree/main/hyprland) # will be added soon
 - [kde configs](https://github.com/xaprier/linux-configs) # will be added soon
-- [gnome configs](https://github.com/xaprier/linux-configs) # will be added soon

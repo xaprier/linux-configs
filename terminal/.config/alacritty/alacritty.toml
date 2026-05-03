@@ -1,0 +1,56 @@
+#   █████╗ ██╗      █████╗  ██████╗██████╗ ██╗████████╗████████╗██╗   ██╗
+#  ██╔══██╗██║     ██╔══██╗██╔════╝██╔══██╗██║╚══██╔══╝╚══██╔══╝╚██╗ ██╔╝
+#  ███████║██║     ███████║██║     ██████╔╝██║   ██║      ██║    ╚████╔╝
+#  ██╔══██║██║     ██╔══██║██║     ██╔══██╗██║   ██║      ██║     ╚██╔╝
+#  ██║  ██║███████╗██║  ██║╚██████╗██║  ██║██║   ██║      ██║      ██║
+#  ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝   ╚═╝      ╚═╝      ╚═╝
+#	gh0stzk - https://github.com/gh0stzk/dotfiles
+
+[general]
+import = [
+"themes/rapid.toml",
+"fonts.toml",
+]
+
+live_config_reload = true
+
+[env]
+TERM = "alacritty"
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[cursor]
+blink_interval = 0
+unfocused_hollow = false
+thickness = 0.15
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+	{ key = "Up", mods = "Control|Shift", action = "IncreaseFontSize" },
+	{ key = "Down", mods = "Control|Shift", action = "DecreaseFontSize" },
+	{ key = "0", mods = "Control|Shift", action = "ResetFontSize" },
+	{ key = "F", mods = "Control|Shift", action = "SearchForward" },
+]
+
+[window]
+decorations = "none"
+dynamic_title = true
+opacity = 1.0
+padding = { x = 15, y = 15 }
+dynamic_padding = false
+resize_increments = true
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[bell]
+animation = "Linear"
+duration = 0
+command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/dialog-error.oga"] }

@@ -1,0 +1,17 @@
+[font]
+size = 16
+
+builtin_box_drawing = true
+
+[font.normal]
+family = "Hack Nerd Font"
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "Hack Nerd Font"
+style = "Italic"
+
+

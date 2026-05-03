@@ -1,0 +1,33 @@
+# Colors for Rapid
+
+# Default colors
+[colors.primary]
+background = "#0f1216"
+foreground = "#e6e6e6"
+
+# Cursor colors
+[colors.cursor]
+cursor = "#e6e6e6"
+text = "#0f1216"
+
+# Normal colors
+[colors.normal]
+black = "#1a1f24"
+red = "#e05f65"
+green = "#7ac97a"
+yellow = "#d4b36e"
+blue = "#7aa2d6"
+magenta = "#c87a93"
+cyan = "#66c2b8"
+white = "#cfd6dd"
+
+# Bright colors
+[colors.bright]
+black = "#2a323a"
+red = "#ef7b81"
+green = "#8fd98f"
+yellow = "#e3c487"
+blue = "#8fb7ea"
+magenta = "#d79bb1"
+cyan = "#7ad5c9"
+white = "#f5f7fa"
